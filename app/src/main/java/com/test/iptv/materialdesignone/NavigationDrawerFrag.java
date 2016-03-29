@@ -1,6 +1,8 @@
 package com.test.iptv.materialdesignone;
 
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
@@ -18,6 +20,7 @@ public class NavigationDrawerFrag extends Fragment {
 
     private ActionBarDrawerToggle  mDrawerToggle;
     private DrawerLayout mDrawerLayout;
+    boolean mDrawer = false;
 
     public NavigationDrawerFrag() {
         // Required empty public constructor
@@ -37,15 +40,42 @@ public class NavigationDrawerFrag extends Fragment {
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
+
+                /*if (!mDrawer){
+                    mDrawer=true;
+                    saveToSharedPref(getActivity(),"drawerState",mDrawer+"");
+                }*/
+
+                getActivity().invalidateOptionsMenu();
             }
 
             @Override
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
+                getActivity().invalidateOptionsMenu();
             }
         };
 
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
 
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+        mDrawerLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                mDrawerToggle.syncState();
+            }
+        });
+
+    }
+
+    public static void saveToSharedPref(Context context, String prefKey, String prefValue){
+        SharedPreferences sharedPref = context.getSharedPreferences("file_name",Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString(prefKey, prefValue);
+        editor.apply();
+    }
+
+    public static String readFromPreference(Context context, String prefKey, String defaultValue) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("file_name",Context.MODE_PRIVATE);
+        return sharedPreferences.getString(prefKey,defaultValue);
     }
 }
