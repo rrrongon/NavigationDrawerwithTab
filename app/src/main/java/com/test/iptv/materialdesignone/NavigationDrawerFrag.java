@@ -7,10 +7,17 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.test.iptv.adapter.listRecyclerAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -18,9 +25,12 @@ import android.view.ViewGroup;
  */
 public class NavigationDrawerFrag extends Fragment {
 
+    private RecyclerView recyclerView;
     private ActionBarDrawerToggle  mDrawerToggle;
     private DrawerLayout mDrawerLayout;
     boolean mDrawer = false;
+
+    private listRecyclerAdapter adapter;
 
     public NavigationDrawerFrag() {
         // Required empty public constructor
@@ -31,7 +41,15 @@ public class NavigationDrawerFrag extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
+
+        View layout = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
+
+        recyclerView = (RecyclerView) layout.findViewById(R.id.drawerRecyclerList);
+
+        adapter = new listRecyclerAdapter(getActivity(),getData());
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager( new LinearLayoutManager(getActivity()));
+        return layout;
     }
 
     public void setUp(DrawerLayout drawerLayout, Toolbar toolbar) {
@@ -77,5 +95,18 @@ public class NavigationDrawerFrag extends Fragment {
     public static String readFromPreference(Context context, String prefKey, String defaultValue) {
         SharedPreferences sharedPreferences = context.getSharedPreferences("file_name",Context.MODE_PRIVATE);
         return sharedPreferences.getString(prefKey,defaultValue);
+    }
+
+    public List<categoryDetail> getData(){
+        List<categoryDetail> data = new ArrayList<>();
+        String titles[] = {"Bangladesh","India"};
+
+        for (int i =0;i<titles.length;i++){
+            categoryDetail current = new categoryDetail();
+            current.categoryName = titles[i];
+            current.icon = R.drawable.ic_play_arrow;
+            data.add(current);
+        }
+        return data;
     }
 }

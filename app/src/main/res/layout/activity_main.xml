@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/drawerLayout">
 
-    <RelativeLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingBottom="@dimen/activity_vertical_margin"
@@ -20,7 +20,7 @@
             layout="@layout/app_bar">
         </include>
 
-    </RelativeLayout>
+    </FrameLayout>
 
     <fragment
         android:layout_width="280dp"
