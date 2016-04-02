@@ -7,5 +7,21 @@ public class categoryDetail {
     public String categoryName;
     public int icon;
 
-   public categoryDetail(){}
+    public categoryDetail(){}
+
+    public int getIcon() {
+        return icon;
+    }
+
+    public void setIcon(int icon) {
+        this.icon = icon;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
 }
