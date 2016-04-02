@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.test.iptv.materialdesignone.R;
 import com.test.iptv.materialdesignone.categoryDetail;
@@ -22,11 +23,13 @@ public class listRecyclerAdapter extends RecyclerView.Adapter<listRecyclerAdapte
 
     private LayoutInflater inflater;
     List<categoryDetail> data = Collections.emptyList();
+    private Context context;
 
 
     public listRecyclerAdapter(Context context , List<categoryDetail> data){
         inflater = LayoutInflater.from(context);
         this.data = data;
+        this.context = context;
     }
 
     @Override
@@ -63,6 +66,13 @@ public class listRecyclerAdapter extends RecyclerView.Adapter<listRecyclerAdapte
             super(itemView);
             title = (TextView) itemView.findViewById(R.id.customRowtitle);
             icon = (ImageView) itemView.findViewById(R.id.customRowImage);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(context, "item clicked", Toast.LENGTH_SHORT).show();
+                }
+            });
         }
     }
 }
