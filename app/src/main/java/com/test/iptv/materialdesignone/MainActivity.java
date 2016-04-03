@@ -3,6 +3,7 @@ package com.test.iptv.materialdesignone;
 import android.app.ActionBar;
 import android.os.Bundle;
 import android.app.Activity;
+import android.support.v17.leanback.app.BrowseFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -44,6 +45,7 @@ public class MainActivity extends ActionBarActivity {
         mPager = (ViewPager) findViewById(R.id.pager);
         mPager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
         mTab = (SlidingTabLayout) findViewById(R.id.tabs);
+        mTab.setDistributeEvenly(true);
         mTab.setViewPager(mPager);
     }
 
